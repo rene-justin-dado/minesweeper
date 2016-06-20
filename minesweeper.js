@@ -1,25 +1,24 @@
 document.addEventListener('DOMContentLoaded', startGame)
 
 function startGame () {
+  // Get each cell from the board
   addListeners(document.getElementsByClassName('board')[0].children)
 }
 
 function addListeners (element) {
   for (var i = 0; i < element.length; i++) {
+    // Binding Event Listeners
     element[i].addEventListener('click', showCell)
   }
 }
 
+// Functions of each event (mouse-click, etc)
 function showCell (evt) {
   evt.target.classList.remove('hidden')
 }
 
-// In startGame, we need to get all the child elements of the 'board' div, much as we had to in Sprint 5. You can use getElementsByClassName to achieve this.
+// Add another event listener in your addListeners function. This one should specify a function named markCell.
 
-//  Loop through all the DOM elements you get back. Call a function named addListeners for each element, passing the element as an argument to the function.
+//  Write the markCell function. This only has one job: toggle the 'marked' class on the event target.
 
-//  Write the function addListeners. It will need to take a parameter named element.
-
-//  Inside addListeners, add an event listener to element for the 'click' event. Name the function you call from it showCell.
-
-//  Write the function showCell. Remember, it's an event listener so it needs to take a parameter called evt or something similar. The only thing the function should do is remove the class 'hidden' from the event's target.
+//  Note that you will need to use .preventDefault() on the event to stop the browser's context menu from popping up when you click the right mouse button.
