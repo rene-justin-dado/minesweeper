@@ -29,7 +29,7 @@ function markCell (evt) {
   evt.preventDefault()
   evt.target.classList.toggle('marked')
 }
-
+getRow(document.getElementsByClassName('board')[0].children)
 // Checks Position on board
 function getRow (element) {
   // Loop through the 'board' elements
@@ -39,10 +39,16 @@ function getRow (element) {
     }
   }
 }
+getCol(document.getElementsByClassName('board')[0].children)
+function getCol (element) {
+  // Loop through the 'board' elements
+  for (var i = 0; i < element.length; i++) {
+    if (element[i].classList.contains('col-')) {
+      return (element[i].split('-'))[1]
+    }
+  }
+}
 
-//  As you may remember, each DOM element has a classList property. We can loop through that just as if it were an ordinary array. Do that: write a for loop that loops through each class name in turn.
+// Now do the same thing, but to find the column instead of the row. You should call the function getCol. The code should look almost exactly the same. (If you think this isn't very DRY, you're right... but you can refactor the code later!)
 
-//  Figure out how to tell if the class name you're currently on begins with row-. If it does, get the number from the end. There are a few ways to do this: one is using the .split function.
-
-//  Return the number once you've found it.
-// For example, if the class were row-9, you'd return 9.
+//  Commit your code.
