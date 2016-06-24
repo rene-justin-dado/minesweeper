@@ -35,7 +35,7 @@ function countMines (cell) {
 // You'll need to use a syntax that looks something like: var surroundingCells = getSurroundingCells(row, col);
 //  Assign the result of countMines to a property on each cell object, surroundingMines using =.
 //  Pass the cell into the function as an argument.
-
+  
 // Adds each cell to the board object
 function addCellToBoard (element) {
   var newCell = {
@@ -75,4 +75,10 @@ function showCell (evt) {
 function markCell (evt) {
   evt.preventDefault()
   evt.target.classList.toggle('marked')
+  evt.target.classList.toggle('hidden')
+  for (var i = 0; i < board.cells.length; i++) {
+    if ( getRow(evt.target) == board.cells[i].row && getCol(evt.target) == board.cells[i].col) {
+      board.cells[i].isMarked = true
+    }
+  }
 }
