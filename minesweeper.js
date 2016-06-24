@@ -64,12 +64,33 @@ function getCol (element) {
     }
   }
 }
-// Checks Position on board
+
+// For each cell, check to see if both .isMine and .isMarked are true. If any mine still exists that isn't marked, the player hasn't won yet and you can return out of the function.
+//  If every mine is marked, find a way to check all the elements in the DOM to be sure that there are no elements with class 'hidden' still set.
+//  If both these criteria pass, the player has won! Find a way to tell them: an alert is probably the simplest.
+function checkForWin (evt) {
+  // console.log(evt.target.classList.contains('hidden'))
+  for (var i = 0; i < board.cells.length; i++) {
+    if (board.cells[i].isMine && !(board.cells[i].isMarked)) {
+      return
+    }
+    if (board.cells[i].isMine && board.cells[i].isMarked) {
+      for (var i = 0; i < evt.target.parentNode; i++) {
+        if (evt.target.classList.contains('hidden')) {
+          return
+        } else {
+          alert('YOU WIN!')
+        }
+      }
+    }
+  }
+}
 
 // Functions of each event (mouse-click, etc)
 function showCell (evt) {
   showSurrounding(evt.target)
   evt.target.classList.remove('hidden')
+  checkForWin(evt)
 }
 
 function markCell (evt) {
@@ -77,8 +98,9 @@ function markCell (evt) {
   evt.target.classList.toggle('marked')
   evt.target.classList.toggle('hidden')
   for (var i = 0; i < board.cells.length; i++) {
-    if ( getRow(evt.target) == board.cells[i].row && getCol(evt.target) == board.cells[i].col) {
+    if (getRow(evt.target) == board.cells[i].row && getCol(evt.target) == board.cells[i].col) {
       board.cells[i].isMarked = true
     }
   }
+  checkForWin(evt)
 }
