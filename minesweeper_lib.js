@@ -8,9 +8,6 @@ function getSurroundingCells (row, col) {
     .filter(function (cell) {
       return columns.includes(cell.col) && rows.includes(cell.row)
     })
-    .filter(function (cell) {
-      return !(cell.row === row && cell.col === col)
-    })
 }
 
 // For the given DOM element, displays surrounding mine counts
