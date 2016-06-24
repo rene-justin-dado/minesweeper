@@ -68,7 +68,7 @@ function getCol (element) {
 
 // Functions of each event (mouse-click, etc)
 function showCell (evt) {
-  evt.target.classList.remove('hidden')
+  showSurrounding(evt.target)
 }
 
 function markCell (evt) {
