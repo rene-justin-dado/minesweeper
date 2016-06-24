@@ -16,9 +16,25 @@ function startGame () {
       addCellToBoard(element[i])
     }
 
+    for (var i = 0; i < board.cells.length; i++) {
+      countMines(board.cells[i])
+    }
   }
 }
-
+function countMines (cell) {
+  var surroundingMines = getSurroundingCells(cell.row, cell.col)
+  var count = 0
+  for (var i = 0; i < surroundingMines.length; i++) {
+    if (surroundingMines[i].isMine) {
+      count++
+    }
+  }
+  cell.surroundingMines = count
+}
+// To help out, we've provided a function in our minesweeper_lib.js file called getSurroundingCells. This accepts a row and column as arguments, and retrieves all the cells that are next to the current cell as an array of objects.
+// You'll need to use a syntax that looks something like: var surroundingCells = getSurroundingCells(row, col);
+//  Assign the result of countMines to a property on each cell object, surroundingMines using =.
+//  Pass the cell into the function as an argument.
 
 // Adds each cell to the board object
 function addCellToBoard (element) {
