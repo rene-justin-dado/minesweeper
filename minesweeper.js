@@ -75,12 +75,11 @@ function checkForWin (evt) {
     }
 
     for (var i = 0; i < board.cells.length; i++) {
-      if (!(evt.target.parentNode.children[i].classList.contains('hidden'))) {
+      if (evt.target.parentNode.children[i].classList.contains('hidden')) {
         return
-      } else {
-        alert('YOU WON!')
       }
     }
+    alert('YOU WON!')
   }
 }
 
