@@ -65,9 +65,7 @@ function getCol (element) {
   }
 }
 
-// For each cell, check to see if both .isMine and .isMarked are true. If any mine still exists that isn't marked, the player hasn't won yet and you can return out of the function.
-//  If every mine is marked, find a way to check all the elements in the DOM to be sure that there are no elements with class 'hidden' still set.
-//  If both these criteria pass, the player has won! Find a way to tell them: an alert is probably the simplest.
+// Win Condition
 function checkForWin (evt) {
   for (var i = 0; i < board.cells.length; i++) {
     if (evt.target.parentNode.children[i].classList.contains('mine') && !(evt.target.parentNode.children[i].classList.contains('marked'))) {
@@ -83,9 +81,24 @@ function checkForWin (evt) {
   }
 }
 
+// Reveal all mines upon loss
+function showAllMines (evt) {
+  for (i = 0; i < board.cells.length; i++) {
+    if (evt.target.parentNode.children[i].classList.contains('mine')) {
+      evt.target.parentNode.children[i].classList.remove('hidden')
+    }
+  }
+  alert('KABOOM!')
+}
+// Define showAllMines. Its job is to remove the 'hidden' class from every mine on the board. There are a few ways you might achieve this, but perhaps the simplest would be to loop through all children of class 'board', checking for the 'mine' class using classList.contains, and if it's present, removing 'hidden' using classList.remove.
+
 // Functions of each event (mouse-click, etc)
 function showCell (evt) {
+  if (evt.target.classList.contains('mine')) {
+    showAllMines(evt)
+  } else {
   showSurrounding(evt.target)
+  }
   evt.target.classList.remove('hidden')
   checkForWin(evt)
 }
