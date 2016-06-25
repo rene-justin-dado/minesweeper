@@ -46,7 +46,7 @@ function addCellToBoard (element) {
   board.cells.push(newCell)
 }
 
-// Checks Position on board
+// Gets an element's row
 function getRow (element) {
   // Loop through the 'board' elements
   for (var i = 0; i < element.classList.length; i++) {
@@ -55,7 +55,7 @@ function getRow (element) {
     }
   }
 }
-
+// Gets an element's column
 function getCol (element) {
   // Loop through the 'board' elements
   for (var i = 0; i < element.classList.length; i++) {
@@ -71,14 +71,22 @@ function checkForWin (evt) {
     if (evt.target.parentNode.children[i].classList.contains('mine') && !(evt.target.parentNode.children[i].classList.contains('marked'))) {
       return
     }
-
     for (var i = 0; i < board.cells.length; i++) {
       if (evt.target.parentNode.children[i].classList.contains('hidden')) {
         return
       }
     }
     alert('YOU WON!')
+    gameReset(evt)
   }
+}
+
+function gameReset (evt) {
+  for (var i = 0; i < board.cells.length; i++) {
+    evt.target.parentNode.children[i].classList.remove('marked')
+    evt.target.parentNode.children[i].classList.add('hidden')
+  }
+  board.cells = []
 }
 
 // Reveal all mines upon loss
@@ -89,10 +97,10 @@ function showAllMines (evt) {
     }
   }
   alert('KABOOM!')
+  gameReset(evt)
 }
-// Define showAllMines. Its job is to remove the 'hidden' class from every mine on the board. There are a few ways you might achieve this, but perhaps the simplest would be to loop through all children of class 'board', checking for the 'mine' class using classList.contains, and if it's present, removing 'hidden' using classList.remove.
 
-// Functions of each event (mouse-click, etc)
+// Reveal the clicked cell
 function showCell (evt) {
   if (evt.target.classList.contains('mine')) {
     showAllMines(evt)
@@ -102,7 +110,7 @@ function showCell (evt) {
   evt.target.classList.remove('hidden')
   checkForWin(evt)
 }
-
+// Mark the r-clicked cell
 function markCell (evt) {
   evt.preventDefault()
   evt.target.classList.toggle('marked')
