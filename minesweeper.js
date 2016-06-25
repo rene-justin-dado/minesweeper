@@ -35,7 +35,7 @@ function countMines (cell) {
 // You'll need to use a syntax that looks something like: var surroundingCells = getSurroundingCells(row, col);
 //  Assign the result of countMines to a property on each cell object, surroundingMines using =.
 //  Pass the cell into the function as an argument.
-  
+
 // Adds each cell to the board object
 function addCellToBoard (element) {
   var newCell = {
@@ -69,18 +69,16 @@ function getCol (element) {
 //  If every mine is marked, find a way to check all the elements in the DOM to be sure that there are no elements with class 'hidden' still set.
 //  If both these criteria pass, the player has won! Find a way to tell them: an alert is probably the simplest.
 function checkForWin (evt) {
-  // console.log(evt.target.classList.contains('hidden'))
   for (var i = 0; i < board.cells.length; i++) {
-    if (board.cells[i].isMine && !(board.cells[i].isMarked)) {
+    if (evt.target.parentNode.children[i].classList.contains('mine') && !(evt.target.parentNode.children[i].classList.contains('marked'))) {
       return
     }
-    if (board.cells[i].isMine && board.cells[i].isMarked) {
-      for (var i = 0; i < evt.target.parentNode; i++) {
-        if (evt.target.classList.contains('hidden')) {
-          return
-        } else {
-          alert('YOU WIN!')
-        }
+
+    for (var i = 0; i < board.cells.length; i++) {
+      if (!(evt.target.parentNode.children[i].classList.contains('hidden'))) {
+        return
+      } else {
+        alert('YOU WON!')
       }
     }
   }
